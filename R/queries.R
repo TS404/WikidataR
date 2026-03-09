@@ -161,10 +161,12 @@ qid_from_identifier <- function(property = 'DOI',
 #' @param value The identifier value to match.
 #' @return A vector of identifiers corresponding to identifiers submitted.
 #' @examples
+#' \donttest{
 #' identifier_from_identifier(property ='ORCID iD',
 #'                            return = 'IMDb ID',
 #'                            value = c('0000-0002-7865-7235','0000-0003-1079-5604')
 #'                            )
+#' }
 #' @export
 identifier_from_identifier <- function(property = 'ORCID iD',
                                        return   = 'IMDb ID',

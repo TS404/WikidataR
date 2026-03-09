@@ -17,7 +17,7 @@
 #' @import tibble
 #' @import utils
 #' @import WikidataQueryServiceR
-#' @importFrom dplyr bind_cols
+#' @importFrom vctrs vec_cbind vec_rbind
 #' @importFrom httr POST
 #' @importFrom httr user_agent
 #' @importFrom jsonlite fromJSON

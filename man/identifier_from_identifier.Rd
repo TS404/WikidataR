@@ -24,8 +24,10 @@ A vector of identifiers corresponding to identifiers submitted.
 Convert unique identifiers to other unique identifiers.
 }
 \examples{
+\donttest{
 identifier_from_identifier(property ='ORCID iD',
                            return = 'IMDb ID',
                            value = c('0000-0002-7865-7235','0000-0003-1079-5604')
                            )
+}
 }

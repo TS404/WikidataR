@@ -66,7 +66,7 @@ check_input <- function(input, substitution){
 
 # -------- Format converters --------
 # Simple functions to convert plain text descriptions into their most likely QID/PIDs
-#'@title Convert an input to a item QID.
+#'@title Convert an input to a item QID
 #'@description Convert an input string to the most likely item 
 #'\href{https://www.wikidata.org/wiki/Q43649390}{QID}.
 #'@param x a vector, data frame, or tibble of strings representing wikidata items
@@ -116,7 +116,7 @@ as_qid <- function(x){
     out <- unlist(lapply(x,as_qid_nest2))
     out
   }
-  output <- bind_cols(lapply(tibble(x),as_qid_nest1))
+  output <- vec_cbind(lapply(tibble(x),as_qid_nest1))
   return(output)
 }
 
@@ -158,7 +158,7 @@ as_pid <- function(x){
     out <- unlist(lapply(x,as_pid_nest2))
     out
   }
-  output <- bind_cols(lapply(tibble(x),as_pid_nest1))
+  output <- vec_cbind(lapply(tibble(x),as_pid_nest1))
   return(output)
 }
 
@@ -193,7 +193,7 @@ as_sid <- function(x){
     out <- unlist(lapply(x,as_sid_nest2))
     out
   }
-  output <- bind_cols(lapply(tibble(x),as_sid_nest1))
+  output <- vec_cbind(lapply(tibble(x),as_sid_nest1))
   return(output)
 }
 
@@ -228,7 +228,7 @@ as_quot <- function(x,format="tibble"){
     out <- unlist(lapply(x,as_quot_nest2))
     out
   }
-  output <- bind_cols(lapply(tibble(x),as_quot_nest1))
+  output <- vec_cbind(lapply(tibble(x),as_quot_nest1))
   return(output)
 }
 
@@ -390,7 +390,7 @@ filter_qids <- function (ids,
       }else{
         desc <- "no description"
       }
-      out <- bind_rows(out,tibble(qid=qid,label=label,desc=desc))
+      out <- vec_rbind(out,tibble(qid=qid,label=label,desc=desc))
     }
   }else{
     for (i in 1:length(ids)){
@@ -419,7 +419,7 @@ filter_qids <- function (ids,
         }else{
           label <- "no label"
         }
-        out <- bind_rows(out,tibble(qid=qid,label=label,desc=desc))
+        out <- vec_rbind(out,tibble(qid=qid,label=label,desc=desc))
       }
     }
   }
@@ -458,7 +458,7 @@ unspecial <- function(x){
   out <- x
   for(i in 1:ncol(x)){
     out[[i]] <- iconv(x[[i]],to = 'ASCII//TRANSLIT')
-    if(Hmisc::all.is.numeric(x[[i]])){
+    if(all_numeric(x[[i]])){
       out[[i]] <- as.numeric(out[[i]])
     }else{
       out[[i]] <- as.factor(out[[i]])
@@ -528,7 +528,7 @@ createrows <- function(items,vector){
     vector <- tibble(vector)
     
     newQID <- which(items=="CREATE")
-    val    <- bind_rows(vector,tibble(data.frame(array("",dim=c(length(newQID),ncol(vector)),dimnames = list(NULL,colnames(vector))))))
+    val    <- vec_rbind(vector,tibble(data.frame(array("",dim=c(length(newQID),ncol(vector)),dimnames = list(NULL,colnames(vector))))))
     id     <- c(1:nrow(vector), newQID-seq_along(newQID)+0.5)
     out    <- tibble(val[order(id),])
     return(out)
@@ -559,4 +559,19 @@ createrows.tidy <- function(QS.tib){
   #replace new empty rows with 'CREATE' row
   out[apply(is.empty(out),all,MARGIN=1),1] <- "CREATE"
   return(out)
+}
+
+
+all_numeric <- function(x) {
+  x <- sub("[[:space:]]+$", "", x)
+  x <- sub("^[[:space:]]+", "", x)
+  # remove empty 
+  xs <- x[nzchar(x)]
+  
+  if (length(xs) == 0 || all(is.na(x))) {
+    return(FALSE)
+  }
+  
+  isnon <- suppressWarnings(!is.na(xs) & is.na(as.numeric(xs)))
+  !any(isnon)
 }

@@ -6,3 +6,4 @@
 ^CRAN-RELEASE$
 ^cran-comments\.md$
 ^\.httr-oauth$
+^LICENSE\.md$

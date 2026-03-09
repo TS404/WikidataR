@@ -72,7 +72,7 @@ disambiguate_QIDs <- function(list,
   #is the list the outut from a previous half-done run?
   if(any(unlist(lapply(list,function(x) x=="STOP")),na.rm = TRUE)){
     item_to_start_from    <- which(unlist(lapply(list,function(x) any(x=="STOP"))))
-    subitem_to_start_from <- first(which(list == "STOP"))
+    subitem_to_start_from <- dplyr::first(which(list == "STOP"))
     output <- list
   }else{
     item_to_start_from    <- 1

@@ -57,16 +57,18 @@ a city).
 }
 \examples{
 # All entities
-\donttest{sf_locations <- get_geo_entity("Q62")}
+\donttest{
+sf_locations <- get_geo_entity("Q62")
 
 # Entities with French, rather than English, names
-\donttest{sf_locations <- get_geo_entity("Q62", language = "fr")}
+sf_locations <- get_geo_entity("Q62", language = "fr")
 
 # Entities within 1km
-\donttest{sf_close_locations <- get_geo_entity("Q62", radius = 1)}
+sf_close_locations <- get_geo_entity("Q62", radius = 1)
 
 # Multiple entities
-\donttest{multi_entity <- get_geo_entity(entity = c("Q62", "Q64"))}
+multi_entity <- get_geo_entity(entity = c("Q62", "Q64"))
+}
 
 }
 \seealso{

@@ -135,10 +135,6 @@ get_example <- function(example_name){
 #'
 #'@param search_term A term to search for.
 #'
-#'@param language The language to return the labels and descriptions in; this should
-#'consist of an ISO language code. Defaults to \code{"en"}.
-#'
-#'@param limit The number of results to return; set to \code{10} by default.
 #'@inheritParams searcher
 #'@inheritDotParams httr::GET
 #'
@@ -187,7 +183,7 @@ find_property <- function(search_term,
 #'consist of an ISO language code. Set to "en" by default.
 #'@param limit the number of results to return; set to 10 by default.
 #'@param type type of wikidata object to return (default = "item")
-#'@param \\dots Additional parameters to supply to [httr::POST]
+#'@param ... Additional parameters to supply to [httr::POST()]
 #'@return If the inputted string matches an item label, return its QID.
 #'If the inputted string matches multiple labels of multiple items, return the QID of the first hit.
 #'If the inputted string is already a QID, return the string.

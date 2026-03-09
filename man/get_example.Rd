@@ -34,5 +34,5 @@ query_wikidata(sparql_query)
 }
 }
 \seealso{
-\link{query_wikidata}
+\link[WikidataQueryServiceR:query_wikidata]{WikidataQueryServiceR::query_wikidata}
 }

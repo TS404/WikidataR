@@ -66,11 +66,13 @@ with geographic attributes (usually cities).
 }
 \examples{
 # Simple bounding box
-\donttest{bruges_box <- get_geo_box("Q12988", "NorthEast", "Q184287", "SouthWest")}
+\donttest{
+bruges_box <- get_geo_box("Q12988", "NorthEast", "Q184287", "SouthWest")
 
 # Custom language
-\donttest{bruges_box_fr <- get_geo_box("Q12988", "NorthEast", "Q184287", "SouthWest",
-                                        language = "fr")}
+bruges_box_fr <- get_geo_box("Q12988", "NorthEast", "Q184287", "SouthWest",
+                                        language = "fr")
+}
 
 }
 \seealso{

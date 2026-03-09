@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{as_qid}
 \alias{as_qid}
-\title{Convert an input to a item QID.}
+\title{Convert an input to a item QID}
 \usage{
 as_qid(x)
 }

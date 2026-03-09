@@ -112,9 +112,9 @@ write_wikidata <- function(items,
   if(var(unlist(rowcount))!=0){
     for (x in 1:length(QS)){
       if(is.null(nrow(QS[[x]]))){
-        QS[[x]] <- slice(tibble(QS[[x]]),rep(1:n(), each=rowmax))
+        QS[[x]] <- dplyr::slice(tibble(QS[[x]]),rep(1:dplyr::n(), each=rowmax))
       }else if (nrow(QS[[x]])==1){ 
-        QS[[x]] <- slice(tibble(QS[[x]]),rep(1:n(), each=rowmax)) 
+        QS[[x]] <- dplyr::slice(tibble(QS[[x]]),rep(1:dplyr::n(), each=rowmax)) 
       }else if(nrow(QS[[x]])==rowmax){ 
         QS[[x]] <- QS[[x]]
       }else{
@@ -162,7 +162,7 @@ write_wikidata <- function(items,
   colnames(QS$properties) <- "Prop"
   colnames(QS$values)     <- "Value"
   
-  QS.tib <- bind_cols(QS$items,
+  QS.tib <- vec_cbind(QS$items,
                       QS$properties,
                       QS$values)  
 
@@ -230,7 +230,7 @@ write_wikidata <- function(items,
   }
   
   if (format=="website"){
-    api.temp1 <- format_tsv(QS.tib, col_names = FALSE, quote_escape = "none")
+    api.temp1 <- format_tsv(QS.tib, col_names = FALSE, escape = "none")
     api.temp2 <- gsub("\t", "%7C",api.temp1)       # Replace TAB with "%7C"
     api.temp3 <- gsub("%7C(%7C)+","%7C",api.temp2) # Replace multiple tabs (from missing values) with a single tab (to distinguish from newlines)
     api.temp4 <- gsub("\n", "%7C%7C",api.temp3)    # Replace end-of-line with "%7C%7C"
@@ -248,7 +248,7 @@ write_wikidata <- function(items,
   }
   
   if (format=="api"){
-    api.temp1 <- format_tsv(QS.tib, col_names = FALSE, quote_escape = "none")
+    api.temp1 <- format_tsv(QS.tib, col_names = FALSE, escape = "none")
     api.temp2 <- gsub("%22","\"",api.temp1) #cludge to fix as_quote issues
     api.data  <- gsub("%2F","/",api.temp2) #cludge to fix as_date issues
     
@@ -264,7 +264,7 @@ write_wikidata <- function(items,
            )
       browseURL("https://quickstatements.toolforge.org/#/batches")
     }else{
-      api.temp1 <- format_tsv(QS.tib, col_names = FALSE, quote_escape = "none")
+      api.temp1 <- format_tsv(QS.tib, col_names = FALSE, escape = "none")
       api.temp2 <- gsub("\t", "%7C",api.temp1)       # Replace TAB with "%7C"
       api.temp3 <- gsub("%7C(%7C)+","%7C",api.temp2) # Replace multiple tabs (from missing values) with a single tab (to distinguish from newlines)
       api.temp4 <- gsub("\n", "%7C%7C",api.temp3)    # Replace end-of-line with "%7C%7C"
